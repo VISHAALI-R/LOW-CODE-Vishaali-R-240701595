@@ -1,0 +1,918 @@
+application "Recruitment & Job Application Management"
+{
+	date format = "dd-MMM-yyyy"
+	time zone = "Asia/Kolkata"
+	time format = "12-hr"
+	write API in zoho = true
+
+	/* ============================================================
+	   FORMS
+	   ============================================================ */
+	forms
+	{
+		/* ---------- Master form for Lookup ---------- */
+		form Employees
+		{
+			displayname = "Employees"
+			success message = "Employee Added Successfully!"
+
+			Employee_Name
+			(
+				type = text
+				displayname = "Employee Name"
+				required = true
+				width = 200px
+			)
+			Department
+			(
+				type = text
+				displayname = "Department"
+				width = 200px
+			)
+			Employee_Email
+			(
+				type = email
+				displayname = "Employee Email"
+				width = 200px
+			)
+		}
+
+		/* ---------- SubForm child form ---------- */
+		form Employment_History
+		{
+			displayname = "Employment History"
+			success message = "Data Added Successfully!"
+
+			Company_Name
+			(
+				type = text
+				displayname = "Company Name"
+				width = 200px
+			)
+			Designation
+			(
+				type = text
+				displayname = "Designation"
+				width = 200px
+			)
+			Duration
+			(
+				type = text
+				displayname = "Duration"
+				width = 200px
+			)
+		}
+
+		/* ---------- Main form: Basic (13) + Advanced (17) fields ---------- */
+		form Job_Application_Form
+		{
+			displayname = "Job Application Form"
+			success message = "Application Submitted Successfully!"
+
+			/* ===== Section A: Personal Details ===== */
+			Section_A
+			(
+				type = section
+				displayname = "Section A - Personal Details"
+			)
+			Candidate_Name
+			(
+				type = name
+				displayname = "Candidate Name"
+				required = true
+				subfield = { First_Name, Last_Name }
+			)
+			Current_Address
+			(
+				type = address
+				displayname = "Current Address"
+				subfield = { Address_Line_1, Address_Line_2, District_City, State_Province, Postal_Code, Country }
+				geocode = true
+			)
+			Contact_Number
+			(
+				type = phonenumber
+				displayname = "Contact Number"
+				required = true
+				country code = true
+				default country = "India"
+			)
+
+			/* ===== Section B: Contact & Online Presence ===== */
+			Section_B
+			(
+				type = section
+				displayname = "Section B - Contact & Online Presence"
+			)
+			Email_Address
+			(
+				type = email
+				displayname = "Email Address"
+				required = true
+				email validation = true
+			)
+			LinkedIn_Profile
+			(
+				type = text
+				displayname = "LinkedIn / Portfolio URL"
+				width = 200px
+			)
+
+			/* ===== Section C: Job & Experience Details ===== */
+			Section_C
+			(
+				type = section
+				displayname = "Section C - Job & Experience Details"
+			)
+			Department_Applied_For
+			(
+				type = picklist
+				displayname = "Department Applied For"
+				required = true
+				values = { "Software Development", "Quality Assurance", "Human Resources", "Finance", "Marketing", "Operations" }
+			)
+			Employment_Type_Preferred
+			(
+				type = radiobuttons
+				displayname = "Employment Type Preferred"
+				required = true
+				values = { "Full-Time", "Part-Time", "Internship" }
+			)
+			Years_Of_Experience
+			(
+				type = number
+				displayname = "Years of Experience"
+				minimum value = 0
+				maximum value = 40
+			)
+			Key_Skills
+			(
+				type = list
+				displayname = "Key Skills"
+				values = { "Java", "React", "SQL", "Python", "Communication", "Deluge", "Zoho Creator" }
+			)
+			Available_Joining_Date
+			(
+				type = date
+				displayname = "Available Joining Date"
+				allow past dates = false
+			)
+
+			/* ===== Section D: Interview Scheduling & Consent ===== */
+			Section_D
+			(
+				type = section
+				displayname = "Section D - Interview Scheduling & Consent"
+			)
+			Preferred_Interview_Time
+			(
+				type = time
+				displayname = "Preferred Interview Time"
+			)
+			Scheduled_Interview_Date
+			(
+				type = date
+				displayname = "Scheduled Interview Date"
+			)
+			Interview_Mode
+			(
+				type = picklist
+				displayname = "Interview Mode"
+				values = { "In-Person", "Virtual" }
+			)
+			Interview_Round
+			(
+				type = picklist
+				displayname = "Interview Round"
+				values = { "Round 1", "Round 2", "HR Round" }
+			)
+			Interviewer_Assigned
+			(
+				type = text
+				displayname = "Interviewer Assigned"
+			)
+			Cover_Letter
+			(
+				type = textarea
+				displayname = "Cover Letter"
+			)
+			Background_Verification_Consent
+			(
+				type = checkbox
+				displayname = "I consent to background verification if selected"
+				required = true
+				initial value = false
+			)
+
+			/* ===== Section E: Academic & Referral Verification ===== */
+			Section_E
+			(
+				type = section
+				displayname = "Section E - Academic & Referral Verification"
+			)
+			Referral_Employee_Lookup
+			(
+				type = picklist
+				displayname = "Referral Employee"
+				values = Employees.ID
+				displayvalue = Employees.Employee_Name
+				autofill department = Employees.Department
+			)
+			Referral_Department
+			(
+				type = text
+				displayname = "Referral Department"
+				read only = true
+			)
+			Candidate_Photo
+			(
+				type = image
+				displayname = "Candidate Photo"
+				allowed formats = { "jpg", "png" }
+				maximum size = 2MB
+			)
+			Resume_Upload
+			(
+				type = file upload
+				displayname = "Resume Upload"
+				allowed formats = { "pdf", "docx" }
+				maximum size = 5MB
+			)
+			Academic_CGPA
+			(
+				type = decimal
+				displayname = "Academic CGPA"
+				decimal places = 2
+			)
+
+			/* ===== Section F: Employment History & Media ===== */
+			Section_F
+			(
+				type = section
+				displayname = "Section F - Employment History & Media Details"
+			)
+			Previous_Employment_History
+			(
+				type = subform
+				displayname = "Previous Employment History"
+				form = Employment_History
+				minimum rows = 0
+				maximum rows = 6
+			)
+			Portfolio_GitHub_URL
+			(
+				type = url
+				displayname = "Portfolio / GitHub URL"
+			)
+			Video_Resume
+			(
+				type = video
+				displayname = "Video Resume"
+				maximum duration = 90 seconds
+				maximum size = 50MB
+			)
+			Self_Introduction_Audio
+			(
+				type = audio
+				displayname = "Self Introduction Audio"
+			)
+
+			/* ===== Section G: Compensation & Relocation ===== */
+			Section_G
+			(
+				type = section
+				displayname = "Section G - Compensation & Relocation"
+			)
+			Willing_To_Relocate
+			(
+				type = decisionbox
+				displayname = "Willing to Relocate"
+				required = true
+			)
+			Current_Annual_CTC
+			(
+				type = currency
+				displayname = "Current Annual CTC"
+				currency = INR
+				minimum value = 0
+			)
+			Expected_Salary_Hike_Percent
+			(
+				type = percent
+				displayname = "Expected Salary Hike Percent"
+				minimum value = 0
+				maximum value = 100
+			)
+			Expected_Annual_CTC
+			(
+				type = formula
+				displayname = "Expected Annual CTC"
+				formula = Current_Annual_CTC + (Current_Annual_CTC * Expected_Salary_Hike_Percent / 100)
+				read only = true
+			)
+
+			/* ===== Section H: Declaration & System Values ===== */
+			Section_H
+			(
+				type = section
+				displayname = "Section H - Declaration & System-Generated Values"
+			)
+			Company_Culture_Display
+			(
+				type = richtext
+				displayname = "Company Culture"
+				value = "<b>We offer hybrid work, learning stipends, and a 5-day work week.</b> Read more about our values below."
+				read only = true
+			)
+			Candidate_Digital_Signature
+			(
+				type = signature
+				displayname = "Candidate Digital Signature"
+				required = true
+			)
+			Application_Submitted_On
+			(
+				type = datetime
+				displayname = "Application Submitted On"
+				initial value = zoho.currenttime
+				read only = true
+			)
+			Application_ID
+			(
+				type = autonumber
+				displayname = "Application ID"
+				prefix = "HR-APP-"
+				include year = true
+				digits = 6
+				start value = 1
+			)
+			Candidate_Tracking_QR_Code
+			(
+				type = qrcode
+				displayname = "Candidate Tracking QR Code"
+				source field = Application_ID
+			)
+
+			/* ===== System / Workflow tracking fields ===== */
+			Status
+			(
+				type = picklist
+				displayname = "Status"
+				values = { "Applied", "Screening", "Interview", "Ready for Offer", "Offer", "Hired", "Rejected" }
+				initial value = "Applied"
+			)
+			Screening_Status
+			(
+				type = picklist
+				displayname = "Screening Status"
+				values = { "Pending", "Shortlisted", "On Hold", "Not Suitable" }
+			)
+			Status_Updated_On
+			(
+				type = datetime
+				displayname = "Status Updated On"
+			)
+			Rejected_On
+			(
+				type = datetime
+				displayname = "Rejected On"
+			)
+			Rejection_Notified
+			(
+				type = checkbox
+				displayname = "Rejection Notified"
+			)
+			Reminder_Sent
+			(
+				type = checkbox
+				displayname = "Reminder Sent"
+			)
+			Probation_Status
+			(
+				type = picklist
+				displayname = "Probation Status"
+				values = { "Not Started", "In Progress", "Completed" }
+			)
+			Referral_Bonus_Status
+			(
+				type = picklist
+				displayname = "Referral Bonus Status"
+				values = { "Not Applicable", "Pending", "Paid", "Failed" }
+			)
+			Referral_Transaction_Ref
+			(
+				type = text
+				displayname = "Referral Transaction Reference"
+			)
+			Offer_Sent_On
+			(
+				type = datetime
+				displayname = "Offer Sent On"
+			)
+			Joining_Date_Offered
+			(
+				type = date
+				displayname = "Joining Date Offered"
+			)
+			Role_Offered
+			(
+				type = text
+				displayname = "Role Offered"
+			)
+		}
+	}
+
+	/* ============================================================
+	   REPORTS  (9 report types)
+	   ============================================================ */
+	reports
+	{
+		list Candidate_Application_Report
+		{
+			displayname = "Candidate Application Report"
+			show all rows from Job_Application_Form
+			(
+				Candidate_Name
+				Department_Applied_For
+				Years_Of_Experience
+				Employment_Type_Preferred
+				Status
+				Current_Annual_CTC editable
+				Expected_Salary_Hike_Percent editable
+				Expected_Annual_CTC
+				Application_ID
+				Candidate_Tracking_QR_Code
+			)
+			filters = ( Department_Applied_For, Employment_Type_Preferred, Status, Key_Skills )
+		}
+
+		list All_Applications_List
+		{
+			displayname = "All Applications List"
+			show all rows from Job_Application_Form
+			(
+				Candidate_Name
+				Department_Applied_For
+				Years_Of_Experience
+				Employment_Type_Preferred
+				Status
+			)
+			sort by Application_Submitted_On descending
+			search = true
+			filters = ( Department_Applied_For, Employment_Type_Preferred, Status )
+		}
+
+		spreadsheet Applications_Spreadsheet
+		{
+			displayname = "Applications Spreadsheet"
+			show all rows from Job_Application_Form
+			(
+				Candidate_Name
+				Department_Applied_For
+				Screening_Status editable
+				Interview_Round editable
+				Interviewer_Assigned editable
+			)
+			group by Department_Applied_For
+			edit permission = "HR Recruitment"
+		}
+
+		kanban Application_Status_Kanban
+		{
+			displayname = "Application Status Kanban"
+			show all rows from Job_Application_Form
+			group by Status
+			columns = { "Applied", "Screening", "Interview", "Offer", "Rejected" }
+			card fields = ( Candidate_Name, Department_Applied_For )
+			on card move update Status_Updated_On = zoho.currenttime
+		}
+
+		calendar Interview_Schedule_Calendar
+		{
+			displayname = "Interview Schedule Calendar"
+			show all rows from Job_Application_Form
+			date field = Scheduled_Interview_Date
+			title = Candidate_Name
+			criteria = ( Scheduled_Interview_Date >= zoho.currentdate && Scheduled_Interview_Date <= zoho.currentdate.addWeek(2) )
+			day cell summary = count, Department_Applied_For
+		}
+
+		map Candidate_Location_Map
+		{
+			displayname = "Candidate Location Map"
+			show all rows from Job_Application_Form
+			location field = Current_Address
+			pin color by = Department_Applied_For
+		}
+
+		timeline Application_Activity_Timeline
+		{
+			displayname = "Application Activity Timeline"
+			show all rows from Job_Application_Form
+			date field = Application_Submitted_On
+			group by week
+			cumulative = true
+			refresh = daily
+		}
+
+		pivot Department_By_EmploymentType_Pivot
+		{
+			displayname = "Department By Employment Type Pivot"
+			show all rows from Job_Application_Form
+			rows = Department_Applied_For
+			columns = Employment_Type_Preferred
+			values = count( ID )
+			blank cells as zero = true
+		}
+
+		chart Department_Applications_Chart
+		{
+			displayname = "Department Applications Chart"
+			show all rows from Job_Application_Form
+			chart type = bar
+			x axis = Department_Applied_For
+			y axis = count( ID )
+			auto refresh = true
+		}
+
+		summary Department_Wise_Summary
+		{
+			displayname = "Department Wise Summary"
+			show all rows from Job_Application_Form
+			group by Department_Applied_For
+			summary = ( count( ID ) as "Applications", avg( Years_Of_Experience ) as "Avg Experience" )
+			show empty groups = true
+		}
+	}
+
+	/* ============================================================
+	   PAGES
+	   ============================================================ */
+	pages
+	{
+		page Recruitment_Command_Center_Page
+		{
+			displayname = "Recruitment Command Center"
+			access = { "HR", "Hiring Manager" }
+
+			panel Command_Center_Main_Panel
+			{
+				section "Overview Strip"
+				{
+					gauge Quarterly_Hiring_Target_Gauge
+					{
+						source = Job_Application_Form
+						criteria = ( Status == "Hired" )
+						target = 20
+						color range = red to green
+					}
+					chart Department_Applications_Chart_Widget
+					{
+						report = Department_Applications_Chart
+						refresh interval = 5 minutes
+					}
+					search Candidate_Search_Bar
+					{
+						form = Job_Application_Form
+						fields = ( Candidate_Name, Email_Address, Application_ID )
+					}
+				}
+				section "Processing Workspace"
+				{
+					button Send_Interview_Reminder_Button
+					{
+						label = "Send Interview Reminders"
+						on click = invoke Send_Interview_Reminders()
+					}
+					board Application_Status_Board
+					{
+						form = Job_Application_Form
+						group by Status
+						columns = { "Applied", "Screening", "Interview", "Offer", "Rejected" }
+					}
+				}
+				section "Detailed Data"
+				{
+					report Full_Applications_Report
+					{
+						report = Candidate_Application_Report
+						export to excel = "HR Lead"
+					}
+				}
+				section "Reference and Quick Actions"
+				{
+					snippet Interview_Evaluation_Criteria_Snippet
+					{
+						content = "Technical skills (40%), Communication (20%), Problem solving (20%), Culture fit (20%). Score each 1-5."
+					}
+					viewer Resume_And_Video_Resume_Viewer
+					{
+						source fields = ( Resume_Upload, Video_Resume )
+						show latest upload = true
+					}
+					form Quick_Referral_Intake_Form
+					{
+						form = Job_Application_Form
+						expandable = true
+					}
+				}
+				section "Operations Strip"
+				{
+					widget Interviewer_And_OpenPositions_Widgets
+					{
+						items = ( "Interviewer Availability", "Open Positions" )
+					}
+				}
+			}
+		}
+	}
+
+	/* ============================================================
+	   BLUEPRINT
+	   ============================================================ */
+	blueprints
+	{
+		blueprint Application_Lifecycle_Blueprint
+		{
+			form = Job_Application_Form
+			field = Status
+			stages = { "Applied", "Screening", "Interview", "Offer", "Hired", "Rejected" }
+			mandatory comment = true
+
+			transition Start_Screening  { from = "Applied"   to = "Screening"  allowed = "Recruiter" }
+			transition Schedule_Interview { from = "Screening" to = "Interview" allowed = "Recruiter" }
+			transition Move_To_Offer    { from = "Interview" to = "Offer"      allowed = "Hiring Manager" }
+			transition Mark_Hired       { from = "Offer"     to = "Hired"      allowed = "HR Head" }
+			transition Reject           { from = "Applied, Screening, Interview, Offer" to = "Rejected" allowed = "Recruiter, Hiring Manager" }
+		}
+	}
+
+	/* ============================================================
+	   WORKFLOWS  (8 workflow options)
+	   ============================================================ */
+	workflow
+	{
+		/* ---------- 1. FORM WORKFLOW ---------- */
+		form On_Application_Submit_Workflow
+		{
+			form = Job_Application_Form
+			record event = on add
+			on success
+			{
+				actions
+				{
+					custom deluge script
+					(
+						try
+						{
+							sendmail
+							[
+								from : zoho.adminuserid
+								to : input.Email_Address
+								subject : "Application Received - " + input.Application_ID
+								message : "Dear " + input.Candidate_Name.first_name + ",<br>Thank you for applying. Your Application ID is <b>" + input.Application_ID + "</b>. Our team will review your profile and contact you within 7 working days."
+							]
+						}
+						catch (e)
+						{
+							info "Invalid candidate email, mail not sent: " + e;
+						}
+						sendmail
+						[
+							from : zoho.adminuserid
+							to : "recruitment@company.com"
+							subject : "New Application: " + input.Candidate_Name + " (" + input.Department_Applied_For + ")"
+							message : "A new application has been submitted. Application ID: " + input.Application_ID
+						]
+					)
+				}
+			}
+		}
+
+		/* ---------- 2. SCHEDULE ---------- */
+		schedule Daily_Interview_Reminder_Schedule
+		{
+			form = Job_Application_Form
+			frequency = daily
+			time = "05:00 PM"
+			actions
+			{
+				custom deluge script
+				(
+					tomorrow = zoho.currentdate.addDay(1);
+					for each rec in Job_Application_Form [Scheduled_Interview_Date == tomorrow && Reminder_Sent == false]
+					{
+						sendmail
+						[
+							from : zoho.adminuserid
+							to : rec.Email_Address
+							subject : "Interview Reminder - " + tomorrow.toString("dd-MMM-yyyy")
+							message : "Dear " + rec.Candidate_Name.first_name + ",<br>Your " + rec.Interview_Round + " interview is tomorrow. Mode: " + rec.Interview_Mode + ". Please be prepared with your documents."
+						]
+						rec.Reminder_Sent = true;
+					}
+				)
+			}
+		}
+
+		/* ---------- 3. APPROVAL ---------- */
+		approval Job_Offer_Approval
+		{
+			form = Job_Application_Form
+			trigger = on edit
+			criteria = ( Status == "Ready for Offer" )
+			approvers
+			{
+				level 1 = "Hiring Manager"  fallback = "HR Head"
+				level 2 = "HR Head"         fallback = "Admin"
+			}
+			on approve
+			{
+				custom deluge script
+				(
+					thisapp.Generate_Offer_Letter_Function(input.ID);
+					input.Status = "Offer";
+				)
+			}
+			on reject
+			{
+				custom deluge script
+				(
+					input.Status = "Interview";
+				)
+			}
+		}
+
+		/* ---------- 4. PAYMENTS ---------- */
+		payment Referral_Bonus_Payout_Workflow
+		{
+			form = Job_Application_Form
+			trigger = on edit
+			criteria = ( Probation_Status == "Completed" && Referral_Employee_Lookup != null )
+			connector = "Payroll_Payment_Connector"
+			retry status check = 3
+			on success
+			{
+				custom deluge script
+				(
+					input.Referral_Bonus_Status = "Paid";
+					input.Referral_Transaction_Ref = payment_response.get("transaction_id");
+				)
+			}
+			on failure
+			{
+				custom deluge script
+				(
+					input.Referral_Bonus_Status = "Failed";
+					sendmail
+					[
+						from : zoho.adminuserid
+						to : "payroll@company.com"
+						subject : "Referral bonus payout failed - " + input.Application_ID
+						message : "Please follow up manually."
+					]
+				)
+			}
+		}
+
+		/* ---------- 5. BLUEPRINT: see blueprints section ---------- */
+
+		/* ---------- 6. BATCH WORKFLOW ---------- */
+		batch Bulk_Rejection_Notification_Batch
+		{
+			form = Job_Application_Form
+			frequency = daily
+			time = "09:00 PM"
+			batch size = 150
+			criteria = ( Status == "Rejected" && Rejected_On >= zoho.currenttime.subDay(1) && Rejection_Notified == false )
+			actions
+			{
+				custom deluge script
+				(
+					sendmail
+					[
+						from : zoho.adminuserid
+						to : record.Email_Address
+						subject : "Update on your application"
+						message : "Dear " + record.Candidate_Name.first_name + ",<br>Thank you for your interest. After careful review we will not be moving forward at this time. We wish you the best."
+					]
+					record.Rejection_Notified = true;
+				)
+			}
+		}
+
+		/* ---------- 7. REPORT WORKFLOW ---------- */
+		report OnEdit_Recalculate_CTC_Workflow
+		{
+			report = Candidate_Application_Report
+			record event = on edit
+			fields changed = ( Current_Annual_CTC, Expected_Salary_Hike_Percent )
+			actions
+			{
+				custom deluge script
+				(
+					input.Expected_Annual_CTC = input.Current_Annual_CTC + (input.Current_Annual_CTC * input.Expected_Salary_Hike_Percent / 100);
+				)
+			}
+		}
+
+		/* ---------- Status tracking helper (form workflow) ---------- */
+		form Track_Status_Change
+		{
+			form = Job_Application_Form
+			record event = on edit
+			actions
+			{
+				custom deluge script
+				(
+					if(input.Status == "Rejected" && input.Rejected_On == null)
+					{
+						input.Rejected_On = zoho.currenttime;
+					}
+					input.Status_Updated_On = zoho.currenttime;
+				)
+			}
+		}
+
+		/* ---------- 8. FUNCTIONS ---------- */
+		functions
+		{
+			void Generate_Offer_Letter_Function(int recordID)
+			{
+				rec = Job_Application_Form[ID == recordID];
+
+				// Input validation - fail safely
+				if(rec.Candidate_Name == null || rec.Expected_Annual_CTC == null)
+				{
+					info "Offer letter not generated: missing Candidate Name or Expected CTC for record " + recordID;
+					return;
+				}
+
+				joiningDate = ifnull(rec.Joining_Date_Offered, rec.Available_Joining_Date);
+				roleName = ifnull(rec.Role_Offered, rec.Department_Applied_For);
+
+				letterHtml = "<html><body style='font-family:Arial'>";
+				letterHtml = letterHtml + "<h2>Offer of Employment</h2>";
+				letterHtml = letterHtml + "<p>Dear " + rec.Candidate_Name + ",</p>";
+				letterHtml = letterHtml + "<p>We are pleased to offer you the position of <b>" + roleName + "</b> with an annual CTC of <b>Rs. " + rec.Expected_Annual_CTC + "</b>.</p>";
+				letterHtml = letterHtml + "<p>Your joining date is <b>" + joiningDate.toString("dd-MMM-yyyy") + "</b>.</p>";
+				letterHtml = letterHtml + "<p>Regards,<br>HR Team</p></body></html>";
+
+				pdfFile = letterHtml.toFile("Offer_Letter_" + rec.Application_ID + ".pdf");
+
+				sendmail
+				[
+					from : zoho.adminuserid
+					to : rec.Email_Address
+					subject : "Offer Letter - " + roleName
+					message : "Dear " + rec.Candidate_Name.first_name + ", please find your offer letter attached."
+					Attachments : file : pdfFile
+				]
+				rec.Offer_Sent_On = zoho.currenttime;
+			}
+
+			void Send_Interview_Reminders()
+			{
+				cutoff = zoho.currentdate.addDay(1);
+				for each rec in Job_Application_Form [Scheduled_Interview_Date >= zoho.currentdate && Scheduled_Interview_Date <= cutoff]
+				{
+					sendmail
+					[
+						from : zoho.adminuserid
+						to : rec.Email_Address
+						subject : "Interview Reminder"
+						message : "Dear " + rec.Candidate_Name.first_name + ", this is a reminder for your upcoming interview."
+					]
+				}
+			}
+		}
+
+		/* ---------- Button on report calling the function (2nd call point) ---------- */
+		button Resend_Offer_Letter
+		{
+			report = Candidate_Application_Report
+			label = "Resend Offer Letter"
+			on click
+			{
+				custom deluge script
+				(
+					thisapp.Generate_Offer_Letter_Function(input.ID);
+					openUrl("#Report:Candidate_Application_Report", "same window");
+				)
+			}
+		}
+	}
+
+	/* ============================================================
+	   ROLES / PERMISSIONS
+	   ============================================================ */
+	roles
+	{
+		"Admin"
+		"HR Head"
+		"HR Recruitment"
+		"Hiring Manager"
+		"Recruiter"
+		"Finance"
+	}
+}

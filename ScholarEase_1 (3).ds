@@ -1,0 +1,2392 @@
+/*
+ * Author       : vishaali.r.2024.cse_rajal188
+ * Generated on : 10-Nov-2026 15:26:57
+ * Version      : 1.0
+ */
+ application "ScholarEase 1"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form AI_Scholarship_Recommendations
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			AI_Scholarship_Recommendations
+			(
+				type = picklist	
+				displayname = "Select student"
+				values  = Form_1_Student_Details.ID
+    			displayformat = [" " + Student_Name.prefix + " " + Student_Name.first_name + " " + Student_Name.last_name + " " + Student_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Recommendation_Request
+			(
+    			type = textarea
+				displayname = "Recommendation Request"
+				height = 100px
+    			description
+    			[
+    				type = tooltip
+    			 	message = "Enter any questions or preferences about scholarship opportunities."
+    			]
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			AI_Recommendation
+			(
+    			type = textarea
+				displayname = "AI Recommendation"
+				height = 100px
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Recommendation_Date
+			(
+    			type = date
+				displayname = "Recommendation Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Application_Review
+		{
+			displayname = "Application Review"
+			success message = "Application Review Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Application
+			(
+				type = picklist	
+				values  = Scholarship_Application.ID
+    			displayformat = [Application_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Reviewer
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Decision
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Approved","Rejected","Additional Document Needed"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Review_Date
+			(
+    			type = date
+				displayname = "Review Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Form_1_Student_Details
+		{
+			displayname = "Form 1: Student Details"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Student_Name
+			(
+    			type = name
+				displayname = "Student Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Student_ID
+			(
+    			type = text
+				displayname = "Student ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Department
+			(
+				type = picklist
+				maxchar = 100
+				values = {"CSE","ECE","IT","EEE","CIVIL","CSBS"}
+				initial value = "ECE"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Year_of_Study
+			(
+				type = picklist
+				displayname = "Year of Study"
+				maxchar = 100
+				values = {"1st year","2nd year","3rd year","4th year"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have CGPA
+			(
+				type = decimal
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Annual_Family_Income
+			(
+				displayname = "Annual Family Income"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Scholarship_Application
+		{
+			displayname = "Scholarship Application"
+			success message = "Scholarship Application Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Application_ID
+			(
+    			type = autonumber
+				displayname = "Application ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student
+			(
+				type = picklist	
+				values  = Scholarship_Details.ID
+    			displayformat = [" - " + ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Scholarship
+			(
+				type = picklist	
+				values  = Scholarship_Details.ID
+    			displayformat = [Scholarship_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Supporting_Document
+			(
+    			type = upload file
+				displayname = "Supporting Document"
+    			file count = 10
+				browse = local_drive
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Certificate_Image
+			(
+    			type = image
+				displayname = "Certificate Image"
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Eligibility_Status
+			(
+				type = picklist
+				displayname = "Eligibility Status"
+				maxchar = 100
+				values = {"Pending Check","Eligible","Not Eligible"}
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Review_Status
+			(
+				type = picklist
+				displayname = "Review Status"
+				maxchar = 100
+				values = {"Pending","Under Review","Approved","Rejected","Additional Documents Required"}
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Application_Date
+			(
+    			type = date
+				displayname = "Application Date"
+				initial value = "13-Oct-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Form_1_Student_Details
+			(
+				type = picklist	
+				displayname = "Form 1: Student Details"
+				values  = Form_1_Student_Details.ID
+    			displayformat = [" " + Student_Name.first_name + " " + Student_Name.last_name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			OCR
+			(
+    			type = textarea
+				displayname = "Extracted Certificate Text"
+				height = 100px
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+						AI_Properties
+						(
+									fieldtype = OCR
+									basefield = Certificate_Image
+						)
+			)
+			Document_Verification_Status
+			(
+				type = picklist
+				displayname = "Document Verification Status"
+				maxchar = 100
+				values = {"pending","verified","rejected"}
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Scholarship_Details
+		{
+			displayname = "Scholarship Details"
+			success message = "Scholarship Detail Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Scholarship_Name
+			(
+    			type = text
+				displayname = "Scholarship Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Scholarship_Type
+			(
+				type = picklist
+				displayname = "Scholarship Type"
+				maxchar = 100
+				values = {"Merit-Based","Need-Based","Academic Excellence"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Minimum_CGPA
+			(
+				type = decimal
+				displayname = "Minimum CGPA"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Maximum_Family_Income
+			(
+				displayname = "Maximum Family Income"
+				type = INR
+				format = commadotindian
+				decimalplace = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Scholarship_Amount
+			(
+				displayname = "Scholarship Amount"
+				type = INR
+				format = commadotindian
+				decimalplace = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Application_Deadline
+			(
+    			type = date
+				displayname = "Application Deadline"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Form_1_Student_Details_Report
+		{
+			displayName = "Form 1: Student Details Report"
+			show all rows from Form_1_Student_Details    
+			(
+				Student_Name  as "Student Name"
+				Email
+				Student_ID as "Student ID"
+				Department
+				Year_of_Study as "Year of Study"
+				CGPA
+				Annual_Family_Income as "Annual Family Income"
+			)
+		}
+		default list All_Scholarship_Details
+		{
+			displayName = "All Scholarship Details"
+			show all rows from Scholarship_Details    
+			(
+				Scholarship_Name as "Scholarship Name"
+				Scholarship_Type as "Scholarship Type"
+				Minimum_CGPA as "Minimum CGPA"
+				Maximum_Family_Income as "Maximum Family Income"
+				Scholarship_Amount as "Scholarship Amount"
+				Application_Deadline as "Application Deadline"
+			)
+		}
+		default list All_Scholarship_Applications
+		{
+			displayName = "All Scholarship Applications"
+			show all rows from Scholarship_Application    
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+				Certificate_Image as "Certificate Image"
+				OCR as "Extracted Certificate Text"
+				Document_Verification_Status as "Document Verification Status"
+			)
+		}
+		default list All_Application_Reviews
+		{
+			displayName = "All Application Reviews"
+			show all rows from Application_Review    
+			(
+				Application
+				Reviewer
+				Decision
+				Review_Date as "Review Date"
+			)
+		}
+		list Eligible_Applications_Report
+		{
+			displayName = "Eligible Applications Report"
+			show all rows from Scholarship_Application  [Eligibility_Status == "Eligible"]  
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+			)
+		}
+		list Approved_Applications_Report
+		{
+			displayName = "Approved Applications Report"
+			show all rows from Scholarship_Application  [Review_Status == "Approved"]  
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+			)
+		}
+		list Rejected_Applications_Report
+		{
+			displayName = "Rejected Applications Report"
+			show all rows from Scholarship_Application  [Review_Status == "Rejected"]  
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+			)
+		}
+		list Pending_Reviews_Report
+		{
+			displayName = "Pending Reviews Report"
+			show all rows from Scholarship_Application  [Review_Status == "Pending"]  
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+			)
+		}
+		default list AI_Scholarship_Recommendations_Report
+		{
+			displayName = "AI_Scholarship_Recommendations Report"
+			show all rows from AI_Scholarship_Recommendations    
+			(
+				AI_Scholarship_Recommendations as "Select student"
+				Recommendation_Request as "Recommendation Request"
+				AI_Recommendation as "AI Recommendation"
+				Recommendation_Date as "Recommendation Date"
+			)
+		}
+		list Certificate_Verification_Report
+		{
+			displayName = "Certificate Verification Report"
+			show all rows from Scholarship_Application    
+			(
+				Application_ID as "Application ID"
+				Student
+				Scholarship
+				Supporting_Document as "Supporting Document"
+				Certificate_Image as "Certificate Image"
+				Eligibility_Status as "Eligibility Status"
+				Review_Status as "Review Status"
+				Application_Date as "Application Date"
+				Form_1_Student_Details as "Form 1: Student Details"
+				OCR as "Extracted Certificate Text"
+				Document_Verification_Status as "Document Verification Status"
+			)
+		}
+	}
+	pages
+	{
+		page Scholarship_Dashboard
+		{
+			displayname = "Scholarship Dashboard."
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Total Scholarship Application'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '2px'\n\tpadding = '0px'\n\tcolor = '#FF4C2F'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Eligible Applications'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '2px'\n\tpadding = '0px'\n\tcolor = '#FF4C2F'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Eligibility_Status == &quot;Eligible&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'media-1-ticket-76'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#0ABB51'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Review_Status == &quot;Approved&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Approved Applications'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Chart'\n\n\t\n\ttitle = 'Scholarship Eligibility Overview'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Pie'\n\txtitle = 'Eligibility Status'\n\tytitle = 'Number of Applications.'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Scholarship_Application'\n\txfield = 'Eligibility_Status'\n\tyfields = 'count:Application_ID'\n/>\n\n</column>\n</row>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'media-1-ticket-76'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = '#FFFFFF'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Review_Status == &quot;Rejected&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Rejected Applications'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Scholarship Review Status Overview'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Pie'\n\txtitle = 'Review Status'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Scholarship_Application'\n\txfield = 'Review_Status'\n\tyfields = 'count:Application_ID'\n/>\n\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Total_Applications_KPI.stat.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '24px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Total Applications'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Eligible_Applications_KP.stat.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '24px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Eligible'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Eligibility_Status == &quot;Eligible&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Approved_Applications_KP.stat.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '24px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#115E59'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Approved'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#115E59'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Review_Status == &quot;Approved&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Rejected_Applications_KP.stat.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '24px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#991B1B'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Rejected'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#991B1B'\n\tsize = '30px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'Review_Status == &quot;Rejected&quot;'\n\t  value = 'thisapp.Scholarship_Application.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Monthly Scholarship Application Trends'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Line'\n\tytitle = 'Number of Applications'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'right.center'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Scholarship_Application'\n\txfield = 'Application_Date'\n\tyfields = 'count:Application_ID'\n\tdateGrouping = 'month_year'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 3'\n\n\t\n\ttitle = 'Department-wise Applications'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Column'\n\txtitle = 'Department'\n\tytitle = 'Number of Applications'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'right.center'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Scholarship_Application'\n\txfield = 'Form_1_Student_Details.Department'\n\tyfields = 'count:Application_ID'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'All_Scholarship_Applications'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_AddRec = 'false'\n\t\t\t\t\tzc_EditRec = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\t\t\t\t\tzc_DuplRec = 'false'\n\t\t\t\t\tzc_EditBulkRec = 'false'\n\t\t\t\t\tzc_BulkDelete = 'false'\n\t\t\t\t\tzc_BulkDuplicate = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+		page ScholarEase_Home
+		{
+			displayname = "ScholarEase Home"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='header_title_bar.title-bar.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'ScholarEase \uD83C\uDF93'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Intelligent Scholarship Application, Eligibility &amp; Financial Aid Management System'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='welcome_banner.welcome-links.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'WELCOME TO SCHOLAREASE!'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '28px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Your gateway to scholarship opportunities and financial assistance.'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Discover scholarships, check your eligibility, submit applications, and track your application progress in one place.'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '14px'\n\tbgColor = '#F7F7F7'\n\n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Scholarship_Application'\n\t\ttarget = 'same-window'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\n\tcolor = 'theme'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\twidth = '20px'\n\theight = '20px'\n\ttype = 'icon'\n\tvalue = 'ui-2-fat-add'\n\tsize = '12px'\n\tcornerRadius = '0px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '13px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Get Started'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='2px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Get Started'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='quick_access_kpi.kpi-strip.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'STUDENT DETAILS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Form_1_Student_Details'\n\t\ttarget = 'new-window'\n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#1C1C1C'\n    borderWidth = '0px'\n\n\t  value = 'Open Student Details'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'AVAILABLE SCHOLARSHIPS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n    action = 'OpenReport'\n\t\tcomponentLinkName = 'All_Scholarship_Details'\n\t\ttarget = 'new-window'\n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#1C1C1C'\n    borderWidth = '0px'\n\n\t  value = 'View Scholarships'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'APPLY FOR SCHOLARSHIP'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'Scholarship_Application'\n\t\ttarget = 'new-window'\n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#1C1C1C'\n    borderWidth = '0px'\n\n\t  value = 'Apply Now'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '25%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'APPLICATION STATUS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n    action = 'OpenReport'\n\t\tcomponentLinkName = 'All_Scholarship_Applications'\n\t\ttarget = 'new-window'\n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#1C1C1C'\n    borderWidth = '0px'\n\n\t  value = 'Check Status'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='dashboard_section.split-hero.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '60%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = 'theme'\n\tsize = '12px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'SCHOLARSHIP DASHBOARD'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='10px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '26px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'View scholarship eligibility statistics, application review status, approved applications, and rejected applications.'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='16px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='100%'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<button \n\t\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n    action = 'OpenPage'\n\t\tcomponentLinkName = 'Scholarship_Dashboard'\n\t\ttarget = 'same-window'\n\tcolor = '#FFFFFF'\n\tsize = '13px'\n\ttext ='View Dashboard'\n\t\tbgColor = 'theme'\n\t\tcornerRadius = '8px' \n/>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '4%'\n>\n\t\n</pc><pc \n\t\tpadding = '20px'\n\tbgColor = 'theme:10'\n\n\t\twidth = '36%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '34px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = '0'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='4px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'VIEW DASHBOARD'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='how_it_works.setup-hero.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = 'theme'\n\tsize = '12px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'HOW IT WORKS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='8px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Simple 3-Step Process'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='1px'\n>\n\t<pc \n\t\tbgColor = '#F7F7F7'\n\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '40px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '33.33%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\n\tcolor = '#575757'\n\tbgColor = '#F7F7F7'\n\twidth = '20px'\n\theight = '20px'\n\ttype = 'icon'\n\tvalue = 'ui-2-fat-add'\n\tsize = '12px'\n\tcornerRadius = '10px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Explore Scholarships'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '33.33%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\n\tcolor = '#575757'\n\tbgColor = '#F7F7F7'\n\twidth = '20px'\n\theight = '20px'\n\ttype = 'icon'\n\tvalue = 'ui-2-fat-add'\n\tsize = '12px'\n\tcornerRadius = '10px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Submit Application'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '33.34%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\n\tcolor = '#575757'\n\tbgColor = '#F7F7F7'\n\twidth = '20px'\n\theight = '20px'\n\ttype = 'icon'\n\tvalue = 'ui-2-fat-add'\n\tsize = '12px'\n\tcornerRadius = '10px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpaddingLeft = '10px'\n\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Track Your Application'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='AI_Assistant_Chatbot_dsp' elementName='AI Assistant Chatbot'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage AI_Assistant_Chatbot_dsp()\ncontent\n&lt;%{\n\t%&gt;\n&lt;style&gt;\n  .scholar-ease-chat-container {\n    font-family: &apos;Segoe UI&apos;, Tahoma, Geneva, Verdana, sans-serif;\n    max-width: 800px;\n    margin: 0 auto;\n    background-color: #ffffff;\n    border-radius: 12px;\n    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    height: 600px;\n  }\n  \n  .chat-header {\n    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n    color: white;\n    padding: 20px;\n    text-align: center;\n  }\n  \n  .chat-header h2 {\n    margin: 0;\n    font-size: 24px;\n    font-weight: 600;\n  }\n  \n  .chat-header p {\n    margin: 5px 0 0;\n    font-size: 14px;\n    opacity: 0.9;\n  }\n  \n  .chat-messages {\n    flex: 1;\n    padding: 20px;\n    overflow-y: auto;\n    background-color: #f8f9fa;\n    display: flex;\n    flex-direction: column;\n    gap: 15px;\n  }\n  \n  .message {\n    max-width: 70%;\n    padding: 12px 16px;\n    border-radius: 18px;\n    position: relative;\n    line-height: 1.5;\n    font-size: 15px;\n  }\n  \n  .message.ai {\n    align-self: flex-start;\n    background-color: #e9ecef;\n    color: #333;\n    border-bottom-left-radius: 4px;\n  }\n  \n  .message.user {\n    align-self: flex-end;\n    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n    color: white;\n    border-bottom-right-radius: 4px;\n  }\n  \n  .message-time {\n    font-size: 11px;\n    margin-top: 5px;\n    opacity: 0.7;\n    text-align: right;\n  }\n  \n  .chat-input-area {\n    padding: 15px;\n    background-color: white;\n    border-top: 1px solid #e9ecef;\n    display: flex;\n    gap: 10px;\n    align-items: center;\n  }\n  \n  .chat-input {\n    flex: 1;\n    padding: 12px 15px;\n    border: 1px solid #ddd;\n    border-radius: 25px;\n    font-size: 15px;\n    outline: none;\n    transition: border-color 0.3s;\n  }\n  \n  .chat-input:focus {\n    border-color: #667eea;\n  }\n  \n  .btn {\n    padding: 10px 20px;\n    border: none;\n    border-radius: 25px;\n    cursor: pointer;\n    font-size: 14px;\n    font-weight: 500;\n    transition: all 0.3s;\n    display: flex;\n    align-items: center;\n    gap: 5px;\n  }\n  \n  .btn-send {\n    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n    color: white;\n  }\n  \n  .btn-send:hover {\n    transform: translateY(-2px);\n    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);\n  }\n  \n  .btn-clear {\n    background-color: #f8f9fa;\n    color: #666;\n    border: 1px solid #ddd;\n  }\n  \n  .btn-clear:hover {\n    background-color: #e9ecef;\n  }\n  \n  .icon {\n    font-style: normal;\n  }\n  \n  @media (max-width: 600px) {\n    .scholar-ease-chat-container {\n      height: 100vh;\n      border-radius: 0;\n    }\n    \n    .message {\n      max-width: 85%;\n    }\n    \n    .chat-header h2 {\n      font-size: 20px;\n    }\n  }\n&lt;/style&gt;\n\n&lt;div class=&quot;scholar-ease-chat-container&quot;&gt;\n  &lt;div class=&quot;chat-header&quot;&gt;\n    &lt;h2&gt;ScholarEase AI Assistant&lt;/h2&gt;\n    &lt;p&gt;Your smart companion for scholarship guidance.&lt;/p&gt;\n  &lt;/div&gt;\n  \n  &lt;div class=&quot;chat-messages&quot; id=&quot;chatMessages&quot;&gt;\n    &lt;div class=&quot;message ai&quot;&gt;\n      &lt;div&gt;Hello! I&apos;m your ScholarEase AI Assistant. How can I help you with your scholarship applications today?&lt;/div&gt;\n      &lt;div class=&quot;message-time&quot;&gt;&lt;%=zoho.currenttime%&gt;&lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n  \n  &lt;div class=&quot;chat-input-area&quot;&gt;\n    &lt;input type=&quot;text&quot; class=&quot;chat-input&quot; id=&quot;messageInput&quot; placeholder=&quot;Type your message here...&quot;&gt;\n    &lt;button class=&quot;btn btn-send&quot; onclick=&quot;sendMessage()&quot;&gt;\n      &lt;span class=&quot;icon&quot;&gt;&amp;#10148;&lt;/span&gt; Send\n    &lt;/button&gt;\n    &lt;button class=&quot;btn btn-clear&quot; onclick=&quot;clearChat()&quot;&gt;\n      &lt;span class=&quot;icon&quot;&gt;&amp;#128465;&lt;/span&gt; Clear Chat\n    &lt;/button&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n\n&lt;script&gt;\n  function sendMessage() {\n    var input = document.getElementById(&apos;messageInput&apos;);\n    var message = input.value.trim();\n    \n    if (message === &apos;&apos;) return;\n    \n    var chatMessages = document.getElementById(&apos;chatMessages&apos;);\n    \n    // Add user message\n    var userMsgDiv = document.createElement(&apos;div&apos;);\n    userMsgDiv.className = &apos;message user&apos;;\n    userMsgDiv.innerHTML = &apos;&lt;div&gt;&apos; + message + &apos;&lt;/div&gt;&lt;div class=&quot;message-time&quot;&gt;&apos; + new Date().toLocaleTimeString([], {hour: &apos;2-digit&apos;, minute:&apos;2-digit&apos;}) + &apos;&lt;/div&gt;&apos;;\n    chatMessages.appendChild(userMsgDiv);\n    \n    // Clear input\n    input.value = &apos;&apos;;\n    \n    // Scroll to bottom\n    chatMessages.scrollTop = chatMessages.scrollHeight;\n    \n    // Simulate AI response (In a real scenario, this would call an AI service)\n    setTimeout(function() {\n      var aiMsgDiv = document.createElement(&apos;div&apos;);\n      aiMsgDiv.className = &apos;message ai&apos;;\n      aiMsgDiv.innerHTML = &apos;&lt;div&gt;Thank you for your question about scholarships. I can help you with eligibility criteria, application deadlines, and required documents. Could you please specify which scholarship you are interested in?&lt;/div&gt;&lt;div class=&quot;message-time&quot;&gt;&apos; + new Date().toLocaleTimeString([], {hour: &apos;2-digit&apos;, minute:&apos;2-digit&apos;}) + &apos;&lt;/div&gt;&apos;;\n      chatMessages.appendChild(aiMsgDiv);\n      chatMessages.scrollTop = chatMessages.scrollHeight;\n    }, 1000);\n  }\n  \n  function clearChat() {\n    var chatMessages = document.getElementById(&apos;chatMessages&apos;);\n    chatMessages.innerHTML = &apos;&lt;div class=&quot;message ai&quot;&gt;&lt;div&gt;Hello! I\\&apos;m your ScholarEase AI Assistant. How can I help you with your scholarship applications today?&lt;/div&gt;&lt;div class=&quot;message-time&quot;&gt;&apos;+ new Date().toLocaleTimeString([], {hour: &apos;2-digit&apos;, minute:&apos;2-digit&apos;}) + &apos;&lt;/div&gt;&lt;/div&gt;&apos;;\n  }\n  \n  // Allow sending message with Enter key\n  document.getElementById(&apos;messageInput&apos;).addEventListener(&apos;keypress&apos;, function(e) {\n    if (e.key === &apos;Enter&apos;) {\n      sendMessage();\n    }\n  });\n&lt;/script&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+		 functions
+		 {
+			 Deluge
+			 {
+				 string Get_Application_Status()
+                 {
+                 	result = "";
+                 	studentRecord = Form_1_Student_Details[Email == zoho.loginuserid];
+                 	if(studentRecord.ID != null)
+                 	{
+                 		result = "YOUR SCHOLARSHIP APPLICATIONS\n\n";
+                 		applicationFound = false;
+                 		for each  application in Scholarship_Application
+                 		{
+                 			if(application.Form_1_Student_Details == studentRecord.ID)
+                 			{
+                 				applicationFound = true;
+                 				result = result + "Application ID: " + application.ID + "\n";
+                 				result = result + "Eligibility Status: " + application.Eligibility_Status + "\n";
+                 				result = result + "Review Status: " + application.Review_Status + "\n\n";
+                 			}
+                 		}
+                 		if(applicationFound == false)
+                 		{
+                 			result = "You have not submitted any scholarship applications yet.";
+                 		}
+                 	}
+                 	else
+                 	{
+                 		result = "Student profile not found.";
+                 	}
+                 	return result;
+                 }
+				 string Get_Eligibility_Info()
+                 {
+                 	result = "SCHOLARSHIP ELIGIBILITY REQUIREMENTS\n\n";
+                 	for each  scholarship in Scholarship_Details
+                 	{
+                 		result = result + "Scholarship: " + scholarship.Scholarship_Name + "\n";
+                 		result = result + "Minimum CGPA Required: " + scholarship.Minimum_CGPA + "\n";
+                 		result = result + "Maximum Family Income: " + scholarship.Maximum_Family_Income + "\n";
+                 		result = result + "Application Deadline: " + scholarship.Application_Deadline + "\n\n";
+                 	}
+                 	return result;
+                 }
+				 string Get_scholarship_data(int student_id)
+                 {
+                 	result = "";
+                 	studentRecord = Form_1_Student_Details[ID == student_id];
+                 	if(studentRecord.ID != null)
+                 	{
+                 		result = "STUDENT DETAILS\n";
+                 		result = result + "Name: " + studentRecord.Student_Name + "\n";
+                 		result = result + "CGPA: " + studentRecord.CGPA + "\n";
+                 		result = result + "Annual Family Income: " + studentRecord.Annual_Family_Income + "\n";
+                 		result = result + "Department: " + studentRecord.Department + "\n";
+                 		result = result + "Year: " + studentRecord.Year_of_Study + "\n\n";
+                 		result = result + "AVAILABLE SCHOLARSHIPS\n";
+                 		for each  scholarship in Scholarship_Details
+                 		{
+                 			if(studentRecord.CGPA >= scholarship.Minimum_CGPA && studentRecord.Annual_Family_Income <= scholarship.Maximum_Family_Income && scholarship.Application_Deadline >= zoho.currentdate)
+                 			{
+                 				result = result + "Scholarship: " + scholarship.Scholarship_Name + "\n";
+                 				result = result + "Type: " + scholarship.Scholarship_Type + "\n";
+                 				result = result + "Amount: " + scholarship.Scholarship_Amount + "\n\n";
+                 			}
+                 		}
+                 	}
+                 	else
+                 	{
+                 		result = "Student record not found.";
+                 	}
+                 	return result;
+                 }
+				 string Get_Scholarship_Info()
+                 {
+                 	result = "AVAILABLE SCHOLARSHIPS\n\n";
+                 	for each  scholarship in Scholarship_Details
+                 	{
+                 		result = result + "Scholarship Name: " + scholarship.Scholarship_Name + "\n";
+                 		result = result + "Scholarship Type: " + scholarship.Scholarship_Type + "\n";
+                 		result = result + "Minimum CGPA: " + scholarship.Minimum_CGPA + "\n";
+                 		result = result + "Maximum Family Income: " + scholarship.Maximum_Family_Income + "\n";
+                 		result = result + "Scholarship Amount: " + scholarship.Scholarship_Amount + "\n";
+                 		result = result + "Application Deadline: " + scholarship.Application_Deadline + "\n\n";
+                 	}
+                 	return result;
+                 }
+				 string Get_Student_Info()
+                 {
+                 	result = "";
+                 	studentRecord = Form_1_Student_Details[Email == zoho.loginuserid];
+                 	if(studentRecord.ID != null)
+                 	{
+                 		result = "STUDENT DETAILS\n";
+                 		result = result + "Name: " + studentRecord.Student_Name + "\n";
+                 		result = result + "Email: " + studentRecord.Email + "\n";
+                 		result = result + "Department: " + studentRecord.Department + "\n";
+                 		result = result + "Year: " + studentRecord.Year_of_Study + "\n";
+                 		result = result + "CGPA: " + studentRecord.CGPA + "\n";
+                 		result = result + "Annual Family Income: " + studentRecord.Annual_Family_Income;
+                 	}
+                 	else
+                 	{
+                 		result = "No student profile found for this account.";
+                 	}
+                 	return result;
+                 }
+				 string ScholarEase_Chatbot(string user_message)
+                 {
+                 	result = "";
+                 	question = user_message.toLowerCase();
+                 	if(question.contains("scholarship"))
+                 	{
+                 		result = thisapp.Get_Scholarship_Info();
+                 	}
+                 	else if(question.contains("eligibility") || question.contains("cgpa"))
+                 	{
+                 		result = thisapp.Get_Eligibility_Info();
+                 	}
+                 	else if(question.contains("application") || question.contains("status"))
+                 	{
+                 		result = thisapp.Get_Application_Status();
+                 	}
+                 	else if(question.contains("my details") || question.contains("my profile"))
+                 	{
+                 		result = thisapp.Get_Student_Info();
+                 	}
+                 	else
+                 	{
+                 		result = "Hello! I can help you with available scholarships, eligibility requirements, student details and application status. What would you like to know?";
+                 	}
+                 	return result;
+                 }
+			 }
+		 }
+
+
+		workflow
+		{
+		form
+		{
+			Check_Scholarship_Eligibi as "Check_Scholarship_Eligibility"
+			{
+				type =  form
+				form = Scholarship_Application
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Form_1_Student_Details != null && input.Scholarship != null && input.Application_Date != null)
+										{
+											studentRecord = Form_1_Student_Details[ID == input.Form_1_Student_Details.toLong()];
+											scholarshipRecord = Scholarship_Details[ID == input.Scholarship.toLong()];
+											eligibility = "Not Eligible";
+											if(studentRecord.count() > 0 && scholarshipRecord.count() > 0)
+											{
+												if(studentRecord.CGPA != null && studentRecord.Annual_Family_Income != null && scholarshipRecord.Minimum_CGPA != null && scholarshipRecord.Maximum_Family_Income != null && scholarshipRecord.Application_Deadline != null)
+												{
+													if(studentRecord.CGPA >= scholarshipRecord.Minimum_CGPA && studentRecord.Annual_Family_Income <= scholarshipRecord.Maximum_Family_Income && input.Application_Date <= scholarshipRecord.Application_Deadline)
+													{
+														eligibility = "Eligible";
+													}
+												}
+											}
+											input.Eligibility_Status = eligibility;
+										}
+						)
+					}
+				}
+
+			}
+			Update_Scholarship_Eligib as "Update_Scholarship_Eligibility"
+			{
+				type =  form
+				form = Scholarship_Application
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											eligibilityStatus = "Pending Check";
+										if(input.Form_1_Student_Details != null && input.Scholarship != null && input.Application_Date != null)
+										{
+											studentRecord = Form_1_Student_Details[ID == input.Form_1_Student_Details];
+											scholarshipRecord = Scholarship_Details[ID == input.Scholarship];
+											if(studentRecord.ID != null && scholarshipRecord.ID != null)
+											{
+												if(studentRecord.CGPA != null && studentRecord.Annual_Family_Income != null && scholarshipRecord.Minimum_CGPA != null && scholarshipRecord.Maximum_Family_Income != null && scholarshipRecord.Application_Deadline != null)
+												{
+													if(studentRecord.CGPA >= scholarshipRecord.Minimum_CGPA && studentRecord.Annual_Family_Income <= scholarshipRecord.Maximum_Family_Income && input.Application_Date <= scholarshipRecord.Application_Deadline)
+													{
+														eligibilityStatus = "Eligible";
+													}
+													else
+													{
+														eligibilityStatus = "Not Eligible";
+													}
+												}
+											}
+										}
+										input.Eligibility_Status = eligibilityStatus;
+						)
+					}
+				}
+
+			}
+			Update_Application_Review as "Update_Application_Review_Status"
+			{
+				type =  form
+				form = Application_Review
+
+				record event = on add
+
+				on success
+				{
+				}
+
+			}
+			Update_Application_Review1 as "Update_Application_Review_Status"
+			{
+				type =  form
+				form = Application_Review
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Application != null && input.Decision != null)
+										{
+											applicationID = input.Application;
+											decisionText = input.Decision.toString().trim();
+											if(decisionText == "Approved")
+											{
+												applicationRecord = Scholarship_Application[ID == applicationID];
+												applicationRecord.Review_Status="Approved";
+											}
+											else if(decisionText == "Rejected")
+											{
+												applicationRecord = Scholarship_Application[ID == applicationID];
+												applicationRecord.Review_Status="Rejected";
+											}
+											else if(decisionText == "Additional Document Needed")
+											{
+												applicationRecord = Scholarship_Application[ID == applicationID];
+												applicationRecord.Review_Status="Additional Documents Required";
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Application_Submitted_Ema as "Application Submitted Email"
+			{
+				type =  form
+				form = Scholarship_Application
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "vishaali.r.2024.cse@rajalakshmi.edu.in"
+							to : "vishaalimoni05@gmail.com"
+							subject : "Record ScholarEase - New Scholarship Application ReceivedAdded"
+							message : "<blockquote><blockquote><blockquote><p class=\"PDq2pG_selectionAnchorContainer\" data-end=\"382\" data-start=\"369\" dir=\"auto\">Dear Student,<br></p></blockquote></blockquote></blockquote><p data-end=\"465\" data-start=\"384\" dir=\"auto\">Your scholarship application has been submitted successfully through ScholarEase.<br></p><p data-end=\"599\" data-start=\"467\" dir=\"auto\">Your application will be reviewed by the scholarship administration team. Please keep your application details for future reference.<br></p><p data-end=\"633\" data-start=\"601\" dir=\"auto\">Thank you for using ScholarEase!<br></p><p data-end=\"677\" data-start=\"635\" dir=\"auto\">Regards,<br></p><div><br></div>"
+							content type : Plain Text
+							attachments : template : _default as inline
+						)
+					}
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Form_1_Student_Details != null)
+										{
+											studentRecord = Form_1_Student_Details[ID == input.Form_1_Student_Details];
+											if(studentRecord.ID != null && studentRecord.Email != null)
+											{
+												studentEmail = studentRecord.Email;
+												info studentEmail;
+											}
+										}
+						)
+					}
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Form_1_Student_Details != null)
+										{
+											studentRecord = Form_1_Student_Details[ID == input.Form_1_Student_Details];
+											if(studentRecord.ID != null && studentRecord.Email != null)
+											{
+												sendmail
+												[
+													from :zoho.adminuserid
+													to :studentRecord.Email
+													subject :"ScholarEase - Application Submitted Successfully"
+													message :"Dear Student, your scholarship application has been submitted successfully. Your Application ID is " + input.ID + ". Please log in to ScholarEase to check your application status."
+												]
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Application_Approved_Emai as "Application Approved Email"
+			{
+				type =  form
+				form = Application_Review
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Application != null && input.Decision == "Approved")
+										{
+											applicationRecord = Scholarship_Application[ID == input.Application];
+											if(applicationRecord.ID != null && applicationRecord.Form_1_Student_Details != null)
+											{
+												studentRecord = Form_1_Student_Details[ID == applicationRecord.Form_1_Student_Details];
+												if(studentRecord.ID != null && studentRecord.Email != null)
+												{
+													sendmail
+													[
+														from :zoho.adminuserid
+														to :studentRecord.Email
+														subject :"ScholarEase - Scholarship Application Approved"
+														message :"Congratulations! Your scholarship application has been approved. Please log in to ScholarEase to view your application details."
+													]
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Application_Rejected_Emai as "Application Rejected Email"
+			{
+				type =  form
+				form = Application_Review
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Application != null && input.Decision == "Rejected")
+										{
+											applicationRecord = Scholarship_Application[ID == input.Application];
+											if(applicationRecord.ID != null && applicationRecord.Form_1_Student_Details != null)
+											{
+												studentRecord = Form_1_Student_Details[ID == applicationRecord.Form_1_Student_Details];
+												if(studentRecord.ID != null && studentRecord.Email != null)
+												{
+													sendmail
+													[
+														from :zoho.adminuserid
+														to :studentRecord.Email
+														subject :"ScholarEase - Scholarship Application Update"
+														message :"We regret to inform you that your scholarship application has been rejected. Please log in to ScholarEase to view your application details or contact the scholarship administration team if you have questions."
+													]
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Additional_Documents_Emai as "Additional Documents Email"
+			{
+				type =  form
+				form = Application_Review
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Application != null && input.Decision == "Additional Document Needed")
+										{
+											applicationRecord = Scholarship_Application[ID == input.Application];
+											if(applicationRecord.ID != null && applicationRecord.Form_1_Student_Details != null)
+											{
+												studentRecord = Form_1_Student_Details[ID == applicationRecord.Form_1_Student_Details];
+												if(studentRecord.ID != null && studentRecord.Email != null)
+												{
+													sendmail
+													[
+														from :zoho.adminuserid
+														to :studentRecord.Email
+														subject :"ScholarEase - Additional Documents Required"
+														message :"Dear Student,\n\nYour scholarship application requires additional supporting documents. Please log in to ScholarEase and check the requirements. Upload the requested documents and contact the scholarship administration team if you need assistance.\n\nRegards,\nScholarEase Administration Team"
+													]
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Update_Student_Name_Displ as "Update Student Name Display"
+			{
+				type =  form
+				form = Scholarship_Application
+
+				record event = on add
+
+				on success
+				{
+				}
+
+			}
+			Generate_AI_Scholarship_R as "Generate AI Scholarship Recommendation"
+			{
+				type =  form
+				form = AI_Scholarship_Recommendations
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											studentID = input.AI_Scholarship_Recommendations;
+										if(studentID != null)
+										{
+											studentRecord = Form_1_Student_Details[ID == studentID];
+											if(studentRecord.ID != null)
+											{
+												// Fetch student information
+												studentCGPA = studentRecord.CGPA;
+												studentIncome = studentRecord.Annual_Family_Income;
+												// Fetch available scholarships
+												scholarshipText = "";
+												scholarshipList = Scholarship_Details[ID != 0];
+												for each  scholarship in scholarshipList
+												{
+													scholarshipText = scholarshipText + "\nScholarship: " + scholarship.Scholarship_Name + "\nType: " + scholarship.Scholarship_Type + "\nMinimum CGPA: " + scholarship.Minimum_CGPA + "\nMaximum Family Income: " + scholarship.Maximum_Family_Income + "\nAmount: " + scholarship.Scholarship_Amount + "\nDeadline: " + scholarship.Application_Deadline + "\n";
+												}
+												// Build AI prompt
+												promptText = "You are a scholarship recommendation assistant." + "\nStudent CGPA: " + studentCGPA + "\nAnnual Family Income: " + studentIncome + "\nStudent Request: " + input.Recommendation_Request + "\nAvailable Scholarships: " + scholarshipText + "\nRecommend suitable scholarships based on the student's profile." + "\nExplain why each scholarship is suitable." + "\nMention unmet eligibility conditions." + "\nNever guarantee scholarship approval." + "\nUse simple and understandable language.";
+												// Prepare OpenAI request
+												requestBody = Map();
+												requestBody.put("model","gpt-4.1-mini");
+												requestBody.put("input",promptText);
+												requestBody.put("max_output_tokens",700);
+												// Call OpenAI API
+												apiResponse = invokeurl
+												[
+													url :"https://api.openai.com/v1/responses"
+													type :POST
+													body:requestBody.toString()
+													headers:{"Content-Type":"application/json"}
+													connection:"openai_connection"
+												];
+												info apiResponse;
+												recommendationText = "";
+												// Extract AI response
+												if(apiResponse != null)
+												{
+													outputList = apiResponse.get("output");
+													if(outputList != null)
+													{
+														for each  outputItem in outputList
+														{
+															if(outputItem.get("type") == "message")
+															{
+																contentList = outputItem.get("content");
+																if(contentList != null)
+																{
+																	for each  contentItem in contentList
+																	{
+																		if(contentItem.get("type") == "output_text")
+																		{
+																			recommendationText = recommendationText + contentItem.get("text");
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+												// Save AI recommendation
+												if(recommendationText != "")
+												{
+													recommendationRecord = AI_Scholarship_Recommendations[ID == input.ID];
+													recommendationRecord.AI_Recommendation=recommendationText;
+													recommendationRecord.Recommendation_Date=zoho.currentdate;
+													info "AI recommendation saved successfully.";
+												}
+												else
+												{
+													info "AI recommendation is empty. Check the API response above.";
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+					"Student"
+					{
+						description = "Students can submit scholarship applications and check their application status"
+					}
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "SD"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	connections
+	{
+		openai_connection
+		(
+			displayname = "OpenAI Connection"
+			connector = openai
+		)
+	}
+	web
+	{
+		forms
+		{
+			form AI_Scholarship_Recommendations
+			{
+				label placement = left
+			}
+			form Application_Review
+			{
+				label placement = left
+			}
+			form Form_1_Student_Details
+			{
+				label placement = left
+			}
+			form Scholarship_Application
+			{
+				label placement = left
+			}
+			form Scholarship_Details
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Form_1_Student_Details_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student_Name as "Student Name"
+								Email
+								Student_ID as "Student ID"
+								Department
+								Year_of_Study as "Year of Study"
+								CGPA
+								Annual_Family_Income as "Annual Family Income"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Student_Name as "Student Name"
+								Email
+								Student_ID as "Student ID"
+								Department
+								Year_of_Study as "Year of Study"
+								CGPA
+								Annual_Family_Income as "Annual Family Income"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Scholarship_Details
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Scholarship_Name as "Scholarship Name"
+								Scholarship_Type as "Scholarship Type"
+								Minimum_CGPA as "Minimum CGPA"
+								Maximum_Family_Income as "Maximum Family Income"
+								Scholarship_Amount as "Scholarship Amount"
+								Application_Deadline as "Application Deadline"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Scholarship_Name as "Scholarship Name"
+								Scholarship_Type as "Scholarship Type"
+								Minimum_CGPA as "Minimum CGPA"
+								Maximum_Family_Income as "Maximum Family Income"
+								Scholarship_Amount as "Scholarship Amount"
+								Application_Deadline as "Application Deadline"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Scholarship_Applications
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Form_1_Student_Details as "Form 1: Student Details"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+								Certificate_Image as "Certificate Image"
+								OCR as "Extracted Certificate Text"
+								Document_Verification_Status as "Document Verification Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Application_Reviews
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application
+								Reviewer
+								Decision
+								Review_Date as "Review Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application
+								Reviewer
+								Decision
+								Review_Date as "Review Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Eligible_Applications_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Approved_Applications_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Rejected_Applications_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Pending_Reviews_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report AI_Scholarship_Recommendations_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								AI_Scholarship_Recommendations as "Select student"
+								Recommendation_Request as "Recommendation Request"
+								AI_Recommendation as "AI Recommendation"
+								Recommendation_Date as "Recommendation Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								AI_Scholarship_Recommendations as "Select student"
+								Recommendation_Request as "Recommendation Request"
+								AI_Recommendation as "AI Recommendation"
+								Recommendation_Date as "Recommendation Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Certificate_Verification_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Certificate_Image as "Certificate Image"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Application_ID as "Application ID"
+								Student
+								Scholarship
+								Supporting_Document as "Supporting Document"
+								Certificate_Image as "Certificate Image"
+								Eligibility_Status as "Eligibility Status"
+								Review_Status as "Review Status"
+								Application_Date as "Application Date"
+								Form_1_Student_Details as "Form 1: Student Details"
+								OCR as "Extracted Certificate Text"
+								Document_Verification_Status as "Document Verification Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Form_1_Student_Details
+				{
+					displayname = "Form 1: Student Details"
+					icon = "design-2-form"
+					form  Form_1_Student_Details
+					{
+						icon = "design-2-form"
+					}
+					report Form_1_Student_Details_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Scholarship_Details
+				{
+					displayname = "Scholarship Details"
+					icon = "users-2-contacts-44"
+					form  Scholarship_Details
+					{
+						icon = "users-2-contacts-44"
+					}
+					report All_Scholarship_Details
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Scholarship_Applications
+				{
+					displayname = "Scholarship Applications"
+					icon = "education-hat"
+					form  Scholarship_Application
+					{
+						icon = "education-pencil-47"
+					}
+					report All_Scholarship_Applications
+					{
+						icon = "tech-desktop"
+					}
+					report Eligible_Applications_Report
+					{
+						icon = "education-pencil-47"
+					}
+					report Approved_Applications_Report
+					{
+						icon = "education-pencil-47"
+					}
+					report Rejected_Applications_Report
+					{
+						icon = "education-pencil-47"
+					}
+					report Pending_Reviews_Report
+					{
+						icon = "education-pencil-47"
+					}
+					report Certificate_Verification_Report
+					{
+						icon = "education-pencil-47"
+					}
+				}
+				section Application_Reviews
+				{
+					displayname = "Application Reviews"
+					icon = "education-board-51"
+					form  Application_Review
+					{
+						icon = "education-board-51"
+					}
+					report All_Application_Reviews
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Scholarship_Dashboard
+				{
+					displayname = "Scholarship Dashboard."
+					icon = "education-hat"
+					page Scholarship_Dashboard
+					{
+						icon = "education-hat"
+					}
+					page ScholarEase_Home
+					{
+						icon = "users-2-home"
+					}
+				}
+				section AI_Scholarship_Recommendations
+				{
+					displayname = "AI_Scholarship_Recommendations"
+					icon = "tech-desktop"
+					form  AI_Scholarship_Recommendations
+					{
+						icon = "tech-desktop"
+					}
+					report AI_Scholarship_Recommendations_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Application_Review
+			{
+				label placement = auto
+			}
+			form Form_1_Student_Details
+			{
+				label placement = auto
+			}
+			form Scholarship_Application
+			{
+				label placement = auto
+			}
+			form Scholarship_Details
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				name = "custom_color"
+				brand color = "#3730a3"
+				navigation background color = "#6366f1"
+				type = "custom"
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Application_Review
+			{
+				label placement = auto
+			}
+			form Form_1_Student_Details
+			{
+				label placement = auto
+			}
+			form Scholarship_Application
+			{
+				label placement = auto
+			}
+			form Scholarship_Details
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				name = "custom_color"
+				brand color = "#3730a3"
+				navigation background color = "#6366f1"
+				type = "custom"
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
